@@ -130,7 +130,7 @@ contract BSLGenesisNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
         string memory traits;
         address owner = ownerOf(tokenId);
 
-        // BSl will be 18 decimal
+        // BSL will be 18 decimal
         uint BSLAllocaiton = (1e18 * userStableCoinTally[owner] * BSLPerUSDCE30 / 1e30) / oneStableCoin;
 
         traits = string(abi.encodePacked(
@@ -185,13 +185,6 @@ contract BSLGenesisNFT is ERC721Enumerable, Ownable, ReentrancyGuard {
         }
 
         return tokensId;
-    }
-
-    /// @dev overrides transfer function to disable moving the NFTs during the presale
-    function _transfer(address from, address to, uint tokenId) internal override {
-        require(block.timestamp > endTime, "Can't move Genesis NFT during presale!");
-
-        super._transfer(from, to, tokenId);
     }
 
     function setStartTime(uint _newStartTime, uint _newEndTime) external onlyOwner {
